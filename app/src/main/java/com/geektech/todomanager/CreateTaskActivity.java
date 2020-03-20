@@ -75,8 +75,6 @@ public class CreateTaskActivity extends AppCompatActivity {
         task.startDate = new Date();
         task.isDone = false;
 
-        TaskHolder.tasks.add(task);
-
         Intent intent = new Intent();
         intent.putExtra("task", task);
         setResult(RESULT_OK, intent);

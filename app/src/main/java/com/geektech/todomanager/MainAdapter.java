@@ -31,13 +31,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
-        holder.task = TaskHolder.tasks.get(position);
-        holder.textView.setText((position + 1) + ") " + TaskHolder.tasks.get(position).title);
+        holder.task = data.get(position);
+        holder.textView.setText((position + 1) + ") " + data.get(position).title);
         holder.checkBox.setChecked(data.get(position).isDone);
     }
 
     @Override
     public int getItemCount() {
-        return TaskHolder.tasks.size();
+        return data.size();
     }
 }
