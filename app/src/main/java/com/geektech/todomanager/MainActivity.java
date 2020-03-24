@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+
 public class MainActivity extends AppCompatActivity implements TaskClickListener {
 
     RecyclerView recyclerView;
@@ -23,12 +25,25 @@ public class MainActivity extends AppCompatActivity implements TaskClickListener
         adapter = new MainAdapter();
         adapter.listener = this;
         recyclerView.setAdapter(adapter);
+
+
+        Intent intent = getIntent();
+        if (intent == null) {
+            Toast.makeText(this, "Task not found", Toast.LENGTH_SHORT).show();
+            finish();
+        } else {
+            Task task = (Task) intent.getSerializableExtra("details");
+           adapter.addTask(task);
+        }
     }
 
     public void onCreateTask(View view) {
         Intent intent = new Intent(this, CreateTaskActivity.class);
         startActivityForResult(intent, 42);
     }
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

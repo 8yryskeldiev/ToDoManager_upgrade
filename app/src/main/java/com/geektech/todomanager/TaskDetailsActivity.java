@@ -87,7 +87,7 @@ Task task;
             Toast.makeText(this, "Enter task description", Toast.LENGTH_SHORT).show();
             return;
         }
-        
+
 
         title.setText(task.title);
         description.setText(task.description);
