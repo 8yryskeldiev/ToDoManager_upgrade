@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -48,13 +49,16 @@ Date taskStartDate;
         if(intent==null){
             Toast.makeText(this, "Task not found", Toast.LENGTH_SHORT).show();
             finish();
-        }else {
-            task = (Task) intent.getSerializableExtra("hhh");
+        }
+        else {
+            task = (Task) intent.getSerializableExtra("edit");
             title.setText(task.title);
             description.setText(task.description);
+
             SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
             startText.setText(format.format(task.startDate));
             deadlineText.setText(format.format(task.deadline));
+
         }
 
 
@@ -113,10 +117,12 @@ Date taskStartDate;
         task.startDate =taskStartDate ;
         task.isDone = true;
 
+
         Intent intent = new Intent();
-        intent.putExtra("edit", task);
+        intent.putExtra("key", task);
         setResult(RESULT_OK, intent);
         finish();
+        Log.d("ololo", "от эдит в детали");
     }
 
 
