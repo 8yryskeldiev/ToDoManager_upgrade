@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity implements TaskClickListener
 
     RecyclerView recyclerView;
     MainAdapter adapter;
+    Task task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +30,13 @@ public class MainActivity extends AppCompatActivity implements TaskClickListener
 
 
         Intent intent = getIntent();
-        if (intent == null) {
-            Toast.makeText(this, "Task not found", Toast.LENGTH_SHORT).show();
-            finish();
-        } else {
-            Task task = (Task) intent.getSerializableExtra("details");
-           adapter.addTask(task);
-        }
+        task = (Task) intent.getSerializableExtra("to_main");
+        if(task!=null){
+    adapter.addTask(task);
+    Log.d("ololo", "в ресайклер");
+}
+
+
     }
 
     public void onCreateTask(View view) {
@@ -50,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements TaskClickListener
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 42) {
             if (resultCode == RESULT_OK) {
-                Task task = (Task) data.getSerializableExtra("task");
-                adapter.addTask(task);
+             Task task = (Task) data.getSerializableExtra("task");
+               adapter.addTask(task);
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Task creation canceled", Toast.LENGTH_SHORT).show();
             }
@@ -61,7 +63,9 @@ public class MainActivity extends AppCompatActivity implements TaskClickListener
     @Override
     public void onTaskClick(Task task) {
         Intent intent = new Intent(this, TaskDetailsActivity.class);
-        intent.putExtra("task", task);
+        intent.putExtra("to_details", task);
         startActivity(intent);
+        Log.d("ololo", "от мейн к деталям");
+
     }
 }
